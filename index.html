@@ -3,186 +3,290 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Hardware Mode</title>
+<title>Rizqi Evan - Hardware Mode</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: 'Segoe UI', sans-serif;
+:root{
+  --glass:rgba(255,255,255,0.08);
+  --text:#ffffff;
 }
 
-body{
-  background:#050505;
-  color:white;
-  overflow:hidden;
-  transition:0.4s;
-}
-
-/* SUPER DARK MODE */
 body.dark-mode{
   background:#000000;
-  color:#00ffff;
+  --glass:rgba(0,0,0,0.8);
+  --text:#e5e7eb;
 }
 
-/* FADE IN */
 body{
-  animation:fadeInBody 1.2s ease;
-}
-@keyframes fadeInBody{
-  from{opacity:0;}
-  to{opacity:1;}
-}
-
-/* FULLSCREEN CONTAINER */
-.container{
-  position:relative;
+  margin:0;
+  font-family:'Outfit',sans-serif;
+  color:var(--text);
+  overflow:hidden;
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
-  text-align:center;
-  z-index:2;
+  background:#0b0f1a;
 }
 
-/* CYBER TEXT */
-h1{
-  font-size:40px;
-  color:#00ffff;
-  text-shadow:0 0 20px #00ffff;
-}
-
-p{
-  opacity:0.8;
-  margin-top:10px;
-}
-
-/* TOGGLE */
-.toggle{
-  margin-top:20px;
-}
-
-/* ICON HOVER */
-.social{
-  margin-top:25px;
-  display:flex;
-  gap:20px;
-}
-
-.social a{
-  font-size:28px;
-  text-decoration:none;
-  color:#00ffff;
-  transition:0.3s;
-}
-
-.social a:hover{
-  transform:scale(1.2);
-  text-shadow:0 0 20px #00ffff;
-}
-
-/* BACKGROUND ANIMATION */
-.background{
-  position:fixed;
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
-  z-index:1;
-  overflow:hidden;
-}
-
-.background span{
-  position:absolute;
-  color:#00ffff33;
-  font-size:20px;
-  animation:float 20s linear infinite;
-}
-
-@keyframes float{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
-}
-
-/* ENTER SCREEN */
+/* ENTER OVERLAY */
 #enterScreen{
   position:fixed;
-  width:100%;
-  height:100%;
-  background:black;
+  inset:0;
+  background:#000;
   display:flex;
   justify-content:center;
   align-items:center;
   z-index:9999;
   cursor:pointer;
+  transition:0.5s ease;
 }
 
 #enterScreen h1{
+  color:#00ffcc;
   font-family:monospace;
-  animation:glow 1.5s infinite alternate;
+  text-shadow:0 0 20px #00ffcc;
+  animation:blink 1.2s infinite alternate;
 }
 
-@keyframes glow{
-  from{opacity:0.6;}
+@keyframes blink{
+  from{opacity:0.5;}
   to{opacity:1;}
 }
 
-/* RESPONSIVE */
-@media(max-width:768px){
-  h1{font-size:28px;}
-  .social a{font-size:22px;}
+/* HARDWARE BACKGROUND */
+.hardware-bg{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  overflow:hidden;
+}
+
+.hardware{
+  position:absolute;
+  font-size:42px;
+  opacity:0.08;
+  color:#00ffcc;
+  text-shadow:0 0 20px #00ffcc;
+  animation:float 20s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh) rotate(0deg);}
+  to{transform:translateY(-10vh) rotate(360deg);}
+}
+
+/* CARD */
+.container{
+  backdrop-filter:blur(25px);
+  background:var(--glass);
+  padding:40px 30px;
+  width:100%;
+  max-width:450px;
+  border-radius:30px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.7);
+  animation:fadeIn 1s ease forwards;
+  opacity:0;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(40px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.profile-wrapper{
+  position:relative;
+  width:140px;
+  height:140px;
+  margin:auto;
+}
+
+.profile-wrapper::before{
+  content:"";
+  position:absolute;
+  inset:-5px;
+  border-radius:50%;
+  background:conic-gradient(#00ffcc,#00ccff,#00ffcc);
+  animation:rotate 3s linear infinite;
+  z-index:-1;
+}
+
+@keyframes rotate{
+  to{transform:rotate(360deg);}
+}
+
+.profile-img{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+h2{
+  margin-top:20px;
+  text-align:center;
+}
+
+.info{
+  margin-top:15px;
+  text-align:justify;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.bio{
+  margin-top:10px;
+  font-style:italic;
+  text-align:center;
+}
+
+/* SOCIAL */
+.social-buttons{
+  margin-top:25px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.social-buttons a{
+  padding:12px;
+  border-radius:18px;
+  font-weight:600;
+  color:white;
+  text-decoration:none;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  transition:0.3s ease;
+}
+
+.social-buttons a:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px rgba(0,255,200,0.3);
+}
+
+.instagram{ background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7); }
+.tiktok{ background:#000; }
+.whatsapp{ background:#25D366; }
+
+/* TOGGLE */
+.theme-toggle{
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+}
+
+.switch{
+  position:relative;
+  width:42px;
+  height:22px;
+}
+
+.switch input{
+  opacity:0;
+}
+
+.slider{
+  position:absolute;
+  inset:0;
+  background:#333;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.slider:before{
+  content:"";
+  position:absolute;
+  height:16px;
+  width:16px;
+  left:3px;
+  bottom:3px;
+  background:white;
+  border-radius:50%;
+  transition:.3s;
+}
+
+input:checked + .slider{
+  background:#00ffcc;
+}
+
+input:checked + .slider:before{
+  transform:translateX(20px);
 }
 </style>
 </head>
 
 <body>
 
-<!-- TAP SCREEN -->
+<!-- TAP TO ENTER -->
 <div id="enterScreen">
-  <h1>⚡ TAP TO ENTER CYBER MODE ⚡</h1>
+  <h1>⚡ TAP TO ENTER ⚡</h1>
 </div>
 
-<!-- BACKGROUND HARDWARE -->
-<div class="background">
-  <span style="left:10%">VGA</span>
-  <span style="left:20%">SSD</span>
-  <span style="left:30%">MONITOR</span>
-  <span style="left:40%">KEYBOARD</span>
-  <span style="left:50%">MOUSE</span>
-  <span style="left:60%">POWER SUPPLY</span>
-  <span style="left:70%">MOTHERBOARD</span>
-  <span style="left:80%">CPU</span>
-  <span style="left:90%">RAM</span>
+<!-- HARDWARE FLOATING -->
+<div class="hardware-bg">
+  <i class="fas fa-microchip hardware" style="left:5%;"></i>
+  <i class="fas fa-memory hardware" style="left:15%;"></i>
+  <i class="fas fa-video hardware" style="left:25%;"></i>
+  <i class="fas fa-hdd hardware" style="left:35%;"></i>
+  <i class="fas fa-desktop hardware" style="left:45%;"></i>
+  <i class="fas fa-keyboard hardware" style="left:60%;"></i>
+  <i class="fas fa-computer-mouse hardware" style="left:70%;"></i>
+  <i class="fas fa-plug hardware" style="left:80%;"></i>
+  <i class="fas fa-microchip hardware" style="left:90%;"></i>
 </div>
 
-<!-- CONTENT -->
 <div class="container">
-  <h1>Rizqi Evan</h1>
-  <p>Hardware Mode Activated</p>
 
-  <div class="toggle">
-    <label>
-      <input type="checkbox" id="themeSwitch"> Mode Gelap / Mode Terang
+  <div class="profile-wrapper">
+    <img src="foto.jpg" class="profile-img">
+  </div>
+
+  <h2>Rizqi Evan Kurniansyah</h2>
+
+  <div class="info">
+    <p><strong>Tempat, Tanggal Lahir:</strong> Trenggalek, 07 Desember 2009</p>
+    <p><strong>Sekolah:</strong> SMK Negeri 1 Pogalan</p>
+    <p><strong>Kelas:</strong> X TKJ 1</p>
+    <p><strong>Jurusan:</strong> Teknik Komputer & Jaringan</p>
+  </div>
+
+  <p class="bio">"Setia Hati Terate Jayaa!!"</p>
+
+  <div class="social-buttons">
+    <a href="https://instagram.com/panzzlyy" target="_blank" class="instagram">
+      <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://tiktok.com/@panzzlyy" target="_blank" class="tiktok">
+      <i class="fab fa-tiktok"></i> TikTok
+    </a>
+    <a href="https://wa.me/6287785881939" target="_blank" class="whatsapp">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
+  </div>
+
+  <div class="theme-toggle">
+    <span>Dark Mode</span>
+    <label class="switch">
+      <input type="checkbox" id="themeSwitch">
+      <span class="slider"></span>
     </label>
   </div>
 
-  <div class="social">
-    <a href="#">Instagram</a>
-    <a href="#">WhatsApp</a>
-    <a href="#">GitHub</a>
-  </div>
 </div>
 
-<!-- MUSIC -->
 <audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-
-/* DARK MODE SAVE */
 const themeSwitch = document.getElementById("themeSwitch");
 
 if(localStorage.getItem("theme")==="dark"){
@@ -197,21 +301,16 @@ themeSwitch.addEventListener("change",()=>{
   );
 });
 
-/* TAP TO ENTER + PLAY MUSIC */
 const music = document.getElementById("bgMusic");
 music.volume = 0.4;
 
 const enterScreen = document.getElementById("enterScreen");
 
 enterScreen.addEventListener("click", () => {
-  music.play().then(()=>{
-    enterScreen.style.opacity="0";
-    setTimeout(()=>{
-      enterScreen.style.display="none";
-    },500);
-  });
+  music.play();
+  enterScreen.style.opacity="0";
+  setTimeout(()=>{ enterScreen.style.display="none"; },500);
 });
-
 </script>
 
 </body>
